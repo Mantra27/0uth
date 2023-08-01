@@ -1,4 +1,4 @@
-# 0uth - Easy OAuth and Passport.js Integration
+# 0uth (zerouth) - One Function OAuth and Passport.js Integration
 
 ![GitHub](https://img.shields.io/github/license/Mantra27/0uth)
 ![npm](https://img.shields.io/npm/v/0uth)
@@ -9,11 +9,11 @@
 
 ## Key Features
 
-- Supports multiple OAuth providers, including Google, Facebook, GitHub, LinkedIn, Twitter, and more.
+- Supports multiple OAuth providers, including Traditional, google, facebook, github, linkedin, twitter, microsoft, discord, slack, twitch, reddit, spotify, gitlab, bitbucket, digitalocean, coinbase.
 - Integrates seamlessly with Passport.js for user authentication and session management.
 - Provides a clean and easy-to-use API for initiating the OAuth flow and handling callback URLs.
 - Allows customizable options for OAuth providers and scopes.
-- Compatible with both Express.js and Fastify frameworks.
+- Compatible with both Express.js and Fastify frameworks, and obviously http.
 
 ## Installation
 
