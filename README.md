@@ -60,7 +60,7 @@ app.listen(port, () => {
 ```
 
 <details>
-  <summary>## Usage with Fastify</summary>
+  <summary>Usage with Fastify</summary>
 
   ```javascript
   const fastify = require('fastify')({ logger: true });
@@ -91,7 +91,7 @@ app.listen(port, () => {
 </details>
 
 <details>
-  <summary>## Usage with http</summary>
+  <summary>Usage with http</summary>
 
   ```javascript
   const http = require('http');
