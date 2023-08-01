@@ -17,8 +17,10 @@
 - Compatible with both Express.js and Fastify frameworks, and obviously http.
 
 ## Installation
-
+### *Unreleased*
 Install `0uth` via npm/yarn:
+
+
 
 ```bash
 npm install 0uth --save
@@ -33,7 +35,7 @@ yarn add 0uth
 ```javascript
 const express = require("express");
 const cors = require("cors");
-const zerouth = require("0uth"); // 0uth 
+const zerouth = require("0uth"); // unreleased
 
 const _port = process.env ?? 8080;
 
@@ -67,7 +69,7 @@ app.listen(_port); //initiate express server
 
   ```javascript
   const fastify = require('fastify')({ logger: true });
-  const zerouth = require('0uth');
+  const zerouth = require('0uth'); //unreleased
 
   const oauthConfig = {
     client: 'google',
@@ -109,7 +111,7 @@ app.listen(_port); //initiate express server
 
   ```javascript
   const http = require('http');
-  const { oauthMiddleware } = require('0uth');
+  const { oauthMiddleware } = require('0uth'); //unreleased
 
   const oauthConfig = {
     client: 'google',
@@ -156,4 +158,4 @@ This project is licensed under the [MIT License](https://github.com/Mantra27/0ut
 
 ## Contributing
 
-Contributions are welcome! Please read our [Contributing Guidelines](https://github.com/Mantra27/0uth/blob/master/CONTRIBUTING.md) for more information.
+Contributions are welcome!
