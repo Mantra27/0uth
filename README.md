@@ -30,33 +30,35 @@ yarn add 0uth
 ## Usage with Express.js
 
 ```javascript
-const express = require('express');
-const passport = require('passport');
-const 0uth = require('0uth');
+const express = require("express");
+const cors = require("cors");
+const zerouth = require("0uth"); // 0uth 
+
+const _port = process.env ?? 8080;
 
 const app = express();
+app.use(cors());
 
-// Initialize Passport
-app.use(passport.initialize());
+// Entry Point: http://localhost:8080/api/auth/google
+app.use(
+    zerouth("/auth/google", {
+        client: "google", 
+        //          ⬆ Available Strategies ⬇
+        //Traditional, google, facebook, github, linkedin, twitter
+        //microsoft, discord, slack, twitch, reddit,
+        //spotify, gitlab, bitbucket, digitalocean, coinbase
+        client_id: "your_client_id",
+        client_secret: "your_client_secret", //optional
+        redirect_uri: `http://localhost:${_port}/api/auth/callback`, //default fallback http://localhost:8080/{strategie_name}/callback
+        scope: ["profile", "email"], //optional
+    })
+);
 
-// Your OAuth configuration (replace with your actual client IDs, secrets, and redirect URIs)
-const oauthConfig = {
-  client: 'google',
-  client_id: 'your_google_client_id',
-  client_secret: 'your_google_client_secret',
-  redirect_uri: 'http://localhost:3000/api/auth/callback',
-  scope: ['profile', 'email'],
-};
+// A note that redirect_uri is optional, but it is recommended to use it.
+// If you don't use it, the default fallback will be http://localhost:8080/{strategie_name}/callback
+// Response payload (received on redirect_url) from the traditional strategy is customable, you can set that entry in your db and use it to authenticate the user.
 
-// Use 0uth as middleware
-app.use(0uth(oauthConfig));
-
-// Define your application routes here
-
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
-});
+app.listen(_port); //initiate express server
 ```
 
 <details>
@@ -64,18 +66,27 @@ app.listen(port, () => {
 
   ```javascript
   const fastify = require('fastify')({ logger: true });
-  const passport = require('passport');
-  const 0uth = require('0uth');
-  const fastify0uth = require('fastify-0uth');
+  const zerouth = require('0uth');
 
   const oauthConfig = {
-    // Your OAuth configuration options here
+    client: 'google',
+    client_id: 'your_google_client_id',
+    client_secret: 'your_google_client_secret',
+    redirect_uri: 'http://localhost:3000/api/auth/callback',
+    scope: ['profile', 'email'],
+    authPath: '/api/auth/google',
+    callbackPath: '/api/auth/callback',
   };
 
-  // Register fastify-0uth plugin
-  fastify.register(fastify0uth, { oauthConfig });
+  // Register the fastify-0uth plugin
+  fastify.register(zerouth({
+      oauthConfig,
+  }));
 
-  // Your application routes here
+  // Your other application routes
+  fastify.get('/', (request, reply) => {
+    reply.send('Hello, this is your Fastify server!');
+  });
 
   const start = async () => {
     try {
@@ -86,7 +97,9 @@ app.listen(port, () => {
       process.exit(1);
     }
   };
+
   start();
+
   ```
 </details>
 
