@@ -42,7 +42,7 @@ const _port = process.env ?? 8080;
 const app = express();
 app.use(cors());
 
-// Entry Point: http://localhost:8080/api/auth/google
+// Entry Point [POST]: http://localhost:8080/auth/google
 app.use(
     zerouth("/auth/google", {
         client: "google", 
