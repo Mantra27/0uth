@@ -1,2 +1,6 @@
+const passport = require("passport");
+import { OAuthConfig } from "../../Interface/config";
 
-// router.get("/google", passport.authenticate("google", {scope: ["profile"]}));
+module.exports = (config: OAuthConfig, req:any, res:any, next: Function) => {
+    passport.authenticate(config.client, { scope: config.scope })(req, res, next);
+}

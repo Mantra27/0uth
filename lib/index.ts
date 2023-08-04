@@ -1,12 +1,7 @@
 //global types and interfaces
-interface OAuthConfig {
-    client?: String;
-    client_id?: String;
-    client_secret?: String;
-    redirect_url?: String;
-    scope?: Array<String>;
-    // Add other optional properties if needed
-}
+import {OAuthConfig} from "../Interface/config";
+const passport = require("passport");
+
 type Path = String; // "/*", "/<strat>"
 
   //globals declaration, will be used for integrity
@@ -24,29 +19,31 @@ type Path = String; // "/*", "/<strat>"
   ];
 
   //importing all the strategies
-  const [
-    GOOGLE, DISCORD, SLACK,
-    TRADITIONAL, GITHUB, FACEBOOK,
-    LINKEDIN, TWITTER, MICROSOFT,
-    TWITCH, REDDIT, SPOTIFY,
-    GITLAB, BITBUCKET, DIGITALOCEAN,
-    COINBASE
-  ] = [
-    require("./strategies/Google"), require("./strategies/Discord"), require("./strategies/Slack"),
-    require("./strategies/Traditional"), require("./strategies/Github"), require("./strategies/Facebook"),
-    require("./strategies/Linkedin"), require("./strategies/Twitter"), require("./strategies/Microsoft"),
-    require("./strategies/Twitch"), require("./strategies/Reddit"), require("./strategies/Spotify"),
-    require("./strategies/Gitlab"), require("./strategies/Bitbucket"), require("./strategies/Digitalocean"),
-    require("./strategies/Coinbase")
-  ];
-
+  // const [
+  //   GOOGLE, DISCORD, SLACK,
+  //   TRADITIONAL, GITHUB, FACEBOOK,
+  //   LINKEDIN, TWITTER, MICROSOFT,
+  //   TWITCH, REDDIT, SPOTIFY,
+  //   GITLAB, BITBUCKET, DIGITALOCEAN,
+  //   COINBASE
+  // ] = [
+  //   require("./strategies/Google"), require("./strategies/Discord"), require("./strategies/Slack"),
+  //   require("./strategies/Traditional"), require("./strategies/Github"), require("./strategies/Facebook"),
+  //   require("./strategies/Linkedin"), require("./strategies/Twitter"), require("./strategies/Microsoft"),
+  //   require("./strategies/Twitch"), require("./strategies/Reddit"), require("./strategies/Spotify"),
+  //   require("./strategies/Gitlab"), require("./strategies/Bitbucket"), require("./strategies/Digitalocean"),
+  //   require("./strategies/Coinbase")
+  // ];
+  
+  const strategy = require("./imports/strategies");
   //serial-d_serial is a middleware that will be used to serialize and deserialize while authentication
   require("../lib/middleware/_serial-d_serial");
-  
+
+  //auth is a middleware that will be used to authenticate the user ()
+  const auth = require("./middleware/authenticator");
 
   //zerouth is the main function that will be exported
   const core:Function = (path: Path, config: OAuthConfig) => {
-
     //default fallback for redirect_url
     if(!config.redirect_url) console.warn(`zerouth: redirect_url for ${config?.client || "Strategy"} not defined, using default fallback redirect_url '/${config?.client || "<strat>"}/callback?code=fallback_default'`)
 
@@ -93,8 +90,12 @@ type Path = String; // "/*", "/<strat>"
 
       })();
 
-    return (req:any, res:any, next:Function) => {
-
+    return (req:any, res:any, next:any) => {
+      //@ts-ignore
+      if(String(req.url).split("?")[0].trim() === "/google/callback"){
+        console.log("callback called")
+        passport.authenticate("google", { failureRedirect: '/login' })(req, res, next);
+      }
       //side cae if zerouth is not being used as a express/http/fastify middleware
       if(req === undefined || res === undefined) throw new Error("zerouth is not being used as a express/http/fastify middleware")
 
@@ -102,9 +103,9 @@ type Path = String; // "/*", "/<strat>"
       if(req.url === "/favicon.ico") return next(); //favicon request will be ignored
 
       //if zerouth path matches current request endpoint
-      else if(String(path) === String(req.url)){
+      if(String(path) === String(req.url)){
 
-        if(String(req.method) === "GET") return res.send("error: zerouth: GET request is not supported, send a POST request on the same endpoint instead.")
+        // if(String(req.method) === "GET") return res.send("error: zerouth: GET request is not supported, send a POST(form-encode) request on the same endpoint instead.")
 
         //client validation (undefined and from valid options only)
         if(config.client === undefined) return res.status(501).send({status: 501, error: `zerouth: client is not defined`, t: new Date().toTimeString()});
@@ -116,13 +117,14 @@ type Path = String; // "/*", "/<strat>"
         {
           const _:OAuthConfig = config;
           //setting the default fallback redirect_url
-          //  = `${req.protocol}://${req.get('host')}${req.url}${_.client}/callback?code=fallback_default`;
-          _.redirect_url = config.redirect_url || `/${_.client}/callback?code=fallback_default`;
+          _.redirect_url = config.redirect_url || `${req.protocol}://${req.get('host')}${req.url}${_.client}/callback?code=fallback_default`;
 
           switch (String(_.client)) {
             case "google":
+              
               //Google OAuth format client_id, client_secret, redirect_url
-              GOOGLE(_.client_id, _.client_secret, _.redirect_url);
+              strategy.Google(_);
+              auth(_, req, res, next);
               break;
               
             default:
@@ -132,7 +134,7 @@ type Path = String; // "/*", "/<strat>"
 
         }
       }
-
+      
       //if zerouth path does not match current request endpoint or /favicon.ico
       else return next();
     };
