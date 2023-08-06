@@ -33,7 +33,7 @@ yarn add 0uth
 ## Usage with Express.js
 
 ```javascript
-//@ts-ignore
+const passport = require("passport")
 const express = require("express")
 
 const google = {
