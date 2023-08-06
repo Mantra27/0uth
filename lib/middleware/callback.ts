@@ -1,12 +1,18 @@
-const passport = require("passport");
+//@ts-ignore
+import passport from "passport"
 import { OAuthConfig } from "../../Interface/config";
 
-module.exports = (config: OAuthConfig, req:any, res:any, next: Function) => {
-    console.log("authenticating");
-    ((req, res, next)=>{
-        passport.authenticate("google", { failureRedirect: '/login' }),
-        function(req:any, res:any) {
-            res.redirect('/from-module');
-        }
-    })(req, res, next)
-}
+const CallbackHandler = (config: OAuthConfig, req:any, res:any) => {
+    //@ts-ignore
+
+    const callBack = (string:any) => {
+    //we're not handling string parameter rn
+    //@ts-ignore
+        return res.redirect(`/${String(config.success_redirect).split("/")[1].trim()}`)
+    };
+    
+    passport.authenticate(config.client, { failureRedirect: config.failure_redirect })(req, res, (error:any) => callBack(error))
+
+};
+
+module.exports = CallbackHandler;

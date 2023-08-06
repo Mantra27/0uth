@@ -2,13 +2,16 @@
 import {OAuthConfig} from "../Interface/config";
 const passport = require("passport");
 
-type Path = String; // "/*", "/<strat>"
+type Path = string; // "/*", "/<strat>"
 
   //globals declaration, will be used for integrity
   const globals = require("./utils/globals");
 
+  //handle after successful reqs
+  const callBack = require("../lib/middleware/callback");
+
   //beta phase has 16 popular pp clients only
-  const _clients : Array<String> = 
+  const _clients : Array<string> = 
   [
     "traditinal", "google", "facebook",
     "github", "linkedin", "twitter",
@@ -41,6 +44,7 @@ type Path = String; // "/*", "/<strat>"
 
   //auth is a middleware that will be used to authenticate the user ()
   const auth = require("./middleware/authenticator");
+  
 
   //zerouth is the main function that will be exported
   const core:Function = (path: Path, config: OAuthConfig) => {
@@ -93,8 +97,8 @@ type Path = String; // "/*", "/<strat>"
     return (req:any, res:any, next:any) => {
       //@ts-ignore
       if(String(req.url).split("?")[0].trim() === "/google/callback"){
-        console.log("callback called")
-        passport.authenticate("google", { failureRedirect: '/login' })(req, res, next);
+        callBack(config, req, res, next);
+        return;
       }
       //side cae if zerouth is not being used as a express/http/fastify middleware
       if(req === undefined || res === undefined) throw new Error("zerouth is not being used as a express/http/fastify middleware")

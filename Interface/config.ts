@@ -4,8 +4,8 @@ interface OAuthConfig {
     client_secret?: String;
     redirect_url?: String;
     scope?: Array<String>;
-    successRedirect?: String;
-    failureRedirect?: String;
+    success_redirect?: String;
+    failure_redirect?: String;
     auth_type?: String; 
 }
 

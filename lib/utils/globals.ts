@@ -9,7 +9,7 @@ interface Globals {
     scope?: string[];
   }
   
-let globals: Globals = {
+const globals: Globals = {
   path: [],
   client: [],
   client_id: [],

@@ -18,9 +18,9 @@ const express = require("express")
 const google = {
   client: 'google',
   client_id: '1014276340059-orscm84ijkimm5vp5qkemp1kmjl4cvpe.apps.googleusercontent.com',
-  redirect_url: 'http://localhost:3000/google/callback',
+  redirect_url: '/google/callback',
   client_secret: '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',
-  success_redirect: '/',
+  success_redirect: '/success',
   failure_redirect: '/login',
   scope: ["email", "profile"]
 };
@@ -39,6 +39,11 @@ app.get("/", (req:any, res:any)=>{
   console.log(req.user);
   res.send(req.user)
 });
+
+app.get("/success", (req:any, res:any)=>{
+  console.log(req.user)
+  res.send(req.user)
+})
 
 app.listen(3000, () => {
   console.log("server live on port 3000")

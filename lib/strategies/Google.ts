@@ -3,7 +3,6 @@ const passport = require("passport");
 import { OAuthConfig } from "../../Interface/config";
 
 module.exports = (config:OAuthConfig) => {
-  console.log("strategy included")
     passport.use(new GoogleStrategy({
         clientID: config.client_id,
         clientSecret: config.client_secret,
