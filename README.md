@@ -33,35 +33,42 @@ yarn add 0uth
 ## Usage with Express.js
 
 ```javascript
-const express = require("express");
-const cors = require("cors");
-const zerouth = require("0uth"); // unreleased
+//@ts-ignore
+const express = require("express")
 
-const _port = process.env ?? 8080;
+const google = {
+  client: 'google',
+  client_id: 'GOOGLE_CLIENT_ID',
+  redirect_url: '/google/callback',
+  client_secret: 'GOOGLE_CLIENT_SECRET',
+  success_redirect: '/success',
+  failure_redirect: '/login',
+  scope: ["email", "profile"]
+};
 
+// Use the oauthMiddleware with your Express.js or Fastify server
 const app = express();
-app.use(cors());
+const passport = require("passport");
 
-// Entry Point [POST]: http://localhost:8080/auth/google
-app.use(
-    zerouth("/auth/google", {
-        client: "google", 
-        //          ⬆ Available Strategies ⬇
-        //Traditional, google, facebook, github, linkedin, twitter
-        //microsoft, discord, slack, twitch, reddit,
-        //spotify, gitlab, bitbucket, digitalocean, coinbase
-        client_id: "your_client_id",
-        client_secret: "your_client_secret", //optional
-        redirect_uri: `http://localhost:${_port}/api/auth/callback`, //default fallback http://localhost:8080/{strategie_name}/callback
-        scope: ["profile", "email"], //optional
-    })
-);
+app.use(require("express-session")({ secret: 'SECRET' , resave: true, saveUninitialized: true}))
+app.use(passport.initialize())
+app.use(passport.session())
 
-// A note that redirect_uri is optional, but it is recommended to use it.
-// If you don't use it, the default fallback will be http://localhost:8080/{strategie_name}/callback
-// Response payload (received on redirect_url) from the traditional strategy is customable, you can set that entry in your db and use it to authenticate the user.
+app.use(zerouth("/google", google))
 
-app.listen(_port); //initiate express server
+app.get("/", (req, res)=>{
+  console.log(req.user);
+  res.send(req.user)
+});
+
+app.get("/success", (req, res)=>{
+  console.log(req.user)
+  res.send(req.user)
+})
+
+app.listen(3000, () => {
+  console.log("server live on port 3000")
+});
 ```
 
 <details>

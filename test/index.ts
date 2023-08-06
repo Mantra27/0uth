@@ -3,18 +3,6 @@ import zerouth from '../lib/index';
 import "../lib/middleware/_serial-d_serial";
 const express = require("express")
 
-// const slack = {
-//   client: 'slack',
-//   client_id: 'slack_client',
-// };
-
-// const discord = {
-//   client: 'discord',
-//   redirect_url: 'http://localhost:3000/discord/auth/callback',
-//   client_id: 'discord_client',
-// };
-
-
 const google = {
   client: 'google',
   client_id: '1014276340059-orscm84ijkimm5vp5qkemp1kmjl4cvpe.apps.googleusercontent.com',
@@ -33,7 +21,7 @@ app.use(require("express-session")({ secret: 'SECRET' , resave: true, saveUninit
 app.use(passport.initialize())
 app.use(passport.session())
 
-app.use(zerouth("/auth", google))
+app.use(zerouth("/google", google))
 
 app.get("/", (req:any, res:any)=>{
   console.log(req.user);
