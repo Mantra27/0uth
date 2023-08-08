@@ -21,6 +21,7 @@ type Path = string; // "/*", "/<strat>"
     "coinbase"
   ];
 
+  //supported clients - google, discord, reddit, 
   //importing all the strategies
   // const [
   //   GOOGLE, DISCORD, SLACK,
@@ -147,7 +148,7 @@ type Path = string; // "/*", "/<strat>"
           //setting the default fallback redirect_url
           _.redirect_url = config.redirect_url || `${req.protocol}://${req.get('host')}${req.url}${_.client}/callback?code=fallback_default`;
 
-          switch (String(_.client)) {
+          switch (String(_.client).toLowerCase()) {
             case "google":
               
               //Google OAuth format client_id, client_secret, redirect_url
@@ -162,6 +163,11 @@ type Path = string; // "/*", "/<strat>"
 
             case "reddit":
               strategy.Reddit(_);
+              auth(_, req, res, next);
+              break;
+
+            case "facebook":
+              strategy.Facebook(_);
               auth(_, req, res, next);
               break;
 

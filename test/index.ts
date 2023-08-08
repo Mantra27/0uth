@@ -32,6 +32,16 @@ const reddit = {
   failure_redirect: '/login',
 };
 
+const facebook = {
+  client: 'facebook',
+  client_id: '250087077892987',
+  redirect_url: '/facebook/callback',
+  client_secret: '5198bb87eb2c7faae3f409c6bea4e902',
+  success_redirect: '/success',
+  failure_redirect: '/login',
+};
+
+
 
 // Use the oauthMiddleware with your Express.js or Fastify server
 const app = express();
@@ -44,7 +54,7 @@ app.use(passport.session())
 app.use(zerouth("/google", google))
 app.use(zerouth("/discord", discord))
 app.use(zerouth("/reddit", reddit))
-
+app.use(zerouth("/facebook", facebook))
 
 
 app.get("/", (req:any, res:any)=>{
