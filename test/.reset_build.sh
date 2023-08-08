@@ -1,1 +1,0 @@
-find "./" -name "*.js" -type f -delete
