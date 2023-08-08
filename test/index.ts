@@ -51,6 +51,17 @@ const github = {
 };
 
 
+const linkedin = {
+  client: 'linkedin',
+  client_id: '77jjghcszspky1',
+  redirect_url: '/linkedin/callback',
+  client_secret: '866BsKnlU6YKZaLA',
+  success_redirect: '/linkedin/success',
+  failure_redirect: '/login',
+  scope: ['r_emailaddress', 'r_liteprofile'],
+}
+
+
 
 // Use the oauthMiddleware with your Express.js or Fastify server
 const app = express();
@@ -65,6 +76,8 @@ app.use(zerouth("/discord", discord))
 app.use(zerouth("/reddit", reddit))
 app.use(zerouth("/facebook", facebook))
 app.use(zerouth("/github", github))
+app.use(zerouth("/linkedin", linkedin))
+
 
 
 

@@ -21,7 +21,7 @@ type Path = string; // "/*", "/<strat>"
     "coinbase"
   ];
 
-  //supported clients - google, discord, reddit, facebook
+  //supported clients - google, discord, reddit, facebook, github
   //importing all the strategies
   // const [
   //   GOOGLE, DISCORD, SLACK,
@@ -173,6 +173,11 @@ type Path = string; // "/*", "/<strat>"
 
             case "github":
               strategy.Github(_);
+              auth(_, req, res, next);
+              break;
+
+            case "linkedin":
+              strategy.Linkedin(_);
               auth(_, req, res, next);
               break;
 
