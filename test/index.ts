@@ -3,44 +3,14 @@ import zerouth from '../lib/index';
 import "../lib/middleware/_serial-d_serial";
 const express = require("express")
 
-const google = {
-  client: 'google',
-  client_id: '1014276340059-orscm84ijkimm5vp5qkemp1kmjl4cvpe.apps.googleusercontent.com',
-  redirect_url: '/google/callback',
-  client_secret: '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',
-  success_redirect: '/success',
-  failure_redirect: '/login',
-  scope: ["email", "profile"]
-};
-
-const discord = {
-  client: 'discord',
-  client_id: '1138425053659279452',
-  redirect_url: '/auth/dsc',
-  client_secret: 'EFSd6dcuqUbmbobXR8V_v1XOkaDJLsd7',
-  success_redirect: '/discord/success',
-  failure_redirect: '/login',
-  scope: ['identify', 'email', 'guilds', 'guilds.join']
-};
-
-const reddit = {
-  client: 'reddit',
-  client_id: '2d0aOJ2LgNJ1g0Vb7o735Q',
-  redirect_url: '/reddit/callback',
-  client_secret: 'p_74ZvDRIlvJqAsvIRjE_v4iOyaI3g',
-  success_redirect: '/success',
-  failure_redirect: '/login',
-};
-
-const facebook = {
-  client: 'facebook',
+const github = {
+  client: 'github',
   client_id: '250087077892987',
-  redirect_url: '/facebook/callback',
+  redirect_url: '/github/callback',
   client_secret: '5198bb87eb2c7faae3f409c6bea4e902',
   success_redirect: '/success',
   failure_redirect: '/login',
 };
-
 
 
 // Use the oauthMiddleware with your Express.js or Fastify server
