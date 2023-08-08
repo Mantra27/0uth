@@ -23,6 +23,16 @@ const discord = {
   scope: ['identify', 'email', 'guilds', 'guilds.join']
 };
 
+const reddit = {
+  client: 'reddit',
+  client_id: '2d0aOJ2LgNJ1g0Vb7o735Q',
+  redirect_url: '/reddit/callback',
+  client_secret: 'p_74ZvDRIlvJqAsvIRjE_v4iOyaI3g',
+  success_redirect: '/success',
+  failure_redirect: '/login',
+};
+
+
 // Use the oauthMiddleware with your Express.js or Fastify server
 const app = express();
 const passport = require("passport");
@@ -33,6 +43,8 @@ app.use(passport.session())
 
 app.use(zerouth("/google", google))
 app.use(zerouth("/discord", discord))
+app.use(zerouth("/reddit", reddit))
+
 
 
 app.get("/", (req:any, res:any)=>{

@@ -160,6 +160,11 @@ type Path = string; // "/*", "/<strat>"
               auth(_, req, res, next);
               break;
 
+            case "reddit":
+              strategy.Reddit(_);
+              auth(_, req, res, next);
+              break;
+
             default:
               res.status(501).send({status: 501, error: `zerouth: client ${_.client} is not supported yet`, t: new Date().toTimeString()});
               break;
