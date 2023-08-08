@@ -21,7 +21,7 @@ type Path = string; // "/*", "/<strat>"
     "coinbase"
   ];
 
-  //supported clients - google, discord, reddit, facebook, github
+  //supported clients - google, discord, reddit, facebook, github, linkedin, twitter
   //importing all the strategies
   // const [
   //   GOOGLE, DISCORD, SLACK,
@@ -180,6 +180,16 @@ type Path = string; // "/*", "/<strat>"
               strategy.Linkedin(_);
               auth(_, req, res, next);
               break;
+
+            case "twitch":
+              strategy.Twitch(_);
+              auth(_, req, res, next);
+              break;
+
+            case "spotify":
+            strategy.Spotify(_);
+            auth(_, req, res, next);
+            break;
 
             default:
               res.status(501).send({status: 501, error: `zerouth: client ${_.client} is not supported yet`, t: new Date().toTimeString()});

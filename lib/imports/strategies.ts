@@ -6,7 +6,6 @@ const Traditional = require("../strategies/Traditional");
 const Github = require("../strategies/Github");
 const Facebook = require("../strategies/Facebook");
 const Linkedin = require("../strategies/Linkedin");
-const Twitter = require("../strategies/Twitter");
 const Microsoft = require("../strategies/Microsoft");
 const Twitch = require("../strategies/Twitch");
 const Reddit = require("../strategies/Reddit");
@@ -22,7 +21,7 @@ module.exports = {
   // Export other strategy modules
     Google, Discord, Slack, 
     Traditional, Github, Facebook, 
-    Linkedin, Twitter, Microsoft, 
+    Linkedin, Microsoft, 
     Twitch, Reddit, Spotify, 
     Gitlab, Bitbucket, Digitalocean, 
     Coinbase

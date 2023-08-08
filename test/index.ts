@@ -61,6 +61,24 @@ const linkedin = {
   scope: ['r_emailaddress', 'r_liteprofile'],
 }
 
+const twitch = {
+  client: 'twitch',
+  client_id: 'acb3s9saehs0s2bb8xmjcteyg33mzg',
+  redirect_url: '/twitch/callback',
+  client_secret: '93yglm1w272escolgp7kd5uelvc7mh',
+  success_redirect: '/twitch/success',
+  failure_redirect: '/login',
+  scope: "user_read"
+}
+
+const spotify = {
+  client: 'spotify',
+  client_id: '8dfb7bd800a54879b66d7b21a11286db',
+  redirect_url: '/spotify/callback',
+  client_secret: 'aa93ee6060d74a9fa26cc3f3fb4603aa',
+  success_redirect: '/spotify/success',
+  failure_redirect: '/login',
+}
 
 
 // Use the oauthMiddleware with your Express.js or Fastify server
@@ -77,7 +95,8 @@ app.use(zerouth("/reddit", reddit))
 app.use(zerouth("/facebook", facebook))
 app.use(zerouth("/github", github))
 app.use(zerouth("/linkedin", linkedin))
-
+app.use(zerouth("/twitch", twitch))
+app.use(zerouth("/spotify", spotify))
 
 
 
