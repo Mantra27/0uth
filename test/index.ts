@@ -51,6 +51,7 @@ const github = {
 };
 
 
+
 // Use the oauthMiddleware with your Express.js or Fastify server
 const app = express();
 const passport = require("passport");
