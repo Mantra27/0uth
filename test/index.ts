@@ -13,6 +13,16 @@ const google = {
   scope: ["email", "profile"]
 };
 
+const discord = {
+  client: 'discord',
+  client_id: '1138425053659279452',
+  redirect_url: '/auth/dsc',
+  client_secret: 'EFSd6dcuqUbmbobXR8V_v1XOkaDJLsd7',
+  success_redirect: '/discord/success',
+  failure_redirect: '/login',
+  scope: ['identify', 'email', 'guilds', 'guilds.join']
+};
+
 // Use the oauthMiddleware with your Express.js or Fastify server
 const app = express();
 const passport = require("passport");
@@ -22,14 +32,14 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 app.use(zerouth("/google", google))
+app.use(zerouth("/discord", discord))
+
 
 app.get("/", (req:any, res:any)=>{
-  console.log(req.user);
   res.send(req.user)
 });
 
 app.get("/success", (req:any, res:any)=>{
-  console.log(req.user)
   res.send(req.user)
 })
 

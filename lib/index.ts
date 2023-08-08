@@ -48,8 +48,30 @@ type Path = string; // "/*", "/<strat>"
 
   //zerouth is the main function that will be exported
   const core:Function = (path: Path, config: OAuthConfig) => {
-    //default fallback for redirect_url
-    if(!config.redirect_url) console.warn(`zerouth: redirect_url for ${config?.client || "Strategy"} not defined, using default fallback redirect_url '/${config?.client || "<strat>"}/callback?code=fallback_default'`)
+
+      //side cases
+      const keysToCompare: (keyof OAuthConfig)[] = ["success_redirect", "failure_redirect", "redirect_url"];
+      
+      for (const externalIterator of keysToCompare) {
+          for (const internalIterator of keysToCompare) {
+              if ((config[externalIterator] === config[internalIterator] && externalIterator !== internalIterator) || String(path) === String(config[externalIterator]) || String(path) === String(config[internalIterator])) {
+                throw new Error(`zerouth: auth path (${path}), success_redirect (${config.success_redirect}), failure_redirect (${config.failure_redirect}) and redirect_url (${config.redirect_url}) should be unique from eachother`)
+              }
+          }
+      }
+  
+    if(!config.redirect_url)
+      throw new Error("zerouth: redirect_url is required")
+    if(String(path).split("")[0] !== "/")
+      throw new Error(`zerouth: path should start with a '/', but we got '${String(path).split("")[0]}'`)
+    if(String(config.redirect_url).includes("//") || String(config.redirect_url).includes("http") || String(config.redirect_url).includes("https") || String(config.redirect_url).includes("www"))
+      throw new Error("zerouth: redirect_url should not contain any protocol or subdomain, only path is allowed (try removing http://, https:// etc)")
+    if(String(config.redirect_url).split("")[0] !== "/")
+      throw new Error(`zerouth: redirect_url should start with a '/', but we got '${String(config.redirect_url).split("")[0]}'`)
+    if(String(config.success_redirect).split("")[0] !== "/")
+      throw new Error(`zerouth: success_redirect should start with a '/', but we got '${String(config.success_redirect).split("")[0]}'`)
+    if(String(config.failure_redirect).split("")[0] !== "/")
+      throw new Error(`zerouth: failure_redirect should start with a '/', but we got '${String(config.failure_redirect).split("")[0]}'`)
 
     //path, client, client_id, redirect_url, client_secret integrity check
 
@@ -94,20 +116,21 @@ type Path = string; // "/*", "/<strat>"
 
       })();
 
-    return (req:any, res:any, next:any) => {
-      //@ts-ignore
-      if(String(req.url).split("?")[0].trim() === "/google/callback"){
-        callBack(config, req, res, next);
-        return;
-      }
-      //side cae if zerouth is not being used as a express/http/fastify middleware
-      if(req === undefined || res === undefined) throw new Error("zerouth is not being used as a express/http/fastify middleware")
+    return async (req:any, res:any, next:any) => {
 
-      //request management
+      //[side cases]
+      //side case if zerouth is not being used as a express/http/fastify middleware
+      if(req === undefined || res === undefined) throw new Error("zerouth is not being used as a express/http/fastify middleware")
       if(req.url === "/favicon.ico") return next(); //favicon request will be ignored
 
-      //if zerouth path matches current request endpoint
-      if(String(path) === String(req.url)){
+      //request management
+      if(String(req.url).split("?")[0] === String(config.redirect_url)){
+        await callBack(config, req, res, next);
+        return;
+      }
+
+      //user requesting to access to OAuth point
+      else if(String(path) === String(req.url)){
 
         // if(String(req.method) === "GET") return res.send("error: zerouth: GET request is not supported, send a POST(form-encode) request on the same endpoint instead.")
 
@@ -120,6 +143,7 @@ type Path = string; // "/*", "/<strat>"
         else
         {
           const _:OAuthConfig = config;
+
           //setting the default fallback redirect_url
           _.redirect_url = config.redirect_url || `${req.protocol}://${req.get('host')}${req.url}${_.client}/callback?code=fallback_default`;
 
@@ -130,7 +154,12 @@ type Path = string; // "/*", "/<strat>"
               strategy.Google(_);
               auth(_, req, res, next);
               break;
-              
+
+            case "discord":
+              strategy.Discord(_);
+              auth(_, req, res, next);
+              break;
+
             default:
               res.status(501).send({status: 501, error: `zerouth: client ${_.client} is not supported yet`, t: new Date().toTimeString()});
               break;
