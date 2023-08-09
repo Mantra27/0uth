@@ -1,12 +1,12 @@
 {
   "name": "0uth",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "main": "./lib/index",
   "license": "MIT",
   "dependencies": {
-    "@r1oga/passport-reddit": "^1.0.0",
     "0auth": "^1.0.4",
     "0uth": "^1.0.9",
+    "@r1oga/passport-reddit": "^1.0.0",
     "express": "^4.18.2",
     "express-session": "^1.17.3",
     "fastify": "^4.21.0",
