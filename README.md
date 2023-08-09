@@ -1,4 +1,3 @@
-Sure, here's the modified README with the added installation instructions for using npm and yarn:
 
 ---
 
