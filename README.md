@@ -78,6 +78,9 @@ Zerouth uses a configuration object to set up OAuth parameters. Make sure to pro
 
 Zerouth provides detailed error handling for various scenarios, including invalid configuration, unsupported clients, and duplicate paths or URLs. Make sure to handle errors appropriately based on your application's requirements.
 
+## Contribution
+Feel free to fork `dev` branch.
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
