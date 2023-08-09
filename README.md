@@ -10,6 +10,7 @@ Zerouth is a module for handling OAuth authentication in Node.js applications. I
 Zerouth is designed to make OAuth authentication easier in your Node.js applications. Below is an example of how to use Zerouth to handle OAuth authentication with different platforms.
 
 ```javascript
+const express = require("express")
 const passport = require('passport');
 const zerouth = require('./zerouth/lib/index');
 
