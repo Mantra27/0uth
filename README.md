@@ -11,7 +11,7 @@ Zerouth is designed to make OAuth authentication easier in your Node.js applicat
 
 ```javascript
 const passport = require('passport');
-const zerouth = require('zerouth');
+const zerouth = require('./zerouth/lib/index');
 
 // Define your OAuth configuration
 const config = {
