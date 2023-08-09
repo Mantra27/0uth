@@ -1,0 +1,56 @@
+{
+  "name": "0uth",
+  "version": "1.0.5",
+  "main": "/lib/index.ts",
+  "license": "MIT",
+  "dependencies": {
+    "0auth": "^1.0.4",
+    "@r1oga/passport-reddit": "^1.0.0",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "passport": "^0.6.0",
+    "passport-discord": "^0.1.4",
+    "passport-facebook": "^3.0.0",
+    "passport-github2": "^0.1.12",
+    "passport-google-oauth2": "^0.2.0",
+    "passport-google-oauth20": "^2.0.0",
+    "passport-linkedin": "^1.0.0",
+    "passport-linkedin-oauth2": "^2.0.0",
+    "passport-spotify": "^2.0.0",
+    "passport-twitch": "^1.0.3",
+    "passport-twitter": "^1.0.4",
+    "typescript": "^5.1.6",
+    "url": "^0.11.1",
+    "wehbook": "^2.1.9"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.2.1",
+    "@typescript-eslint/parser": "^6.2.1",
+    "eslint": "^8.46.0",
+    "passport-reddit": "^1.1.0"
+  },
+  "description": "![GitHub](https://img.shields.io/github/license/Mantra27/0uth) ![npm](https://img.shields.io/npm/v/0uth) ![Node.js](https://img.shields.io/node/v/0uth) ![GitHub last commit](https://img.shields.io/github/last-commit/Mantra27/0uth)",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mantra27/0uth.git"
+  },
+  "keywords": [
+    "oauth",
+    "passport",
+    "google-login",
+    "facebook-login",
+    "0auth"
+  ],
+  "author": "Mantra27",
+  "bugs": {
+    "url": "https://github.com/Mantra27/0uth/issues"
+  },
+  "homepage": "https://github.com/Mantra27/0uth#readme"
+}
