@@ -74,7 +74,6 @@ Zerouth currently supports OAuth authentication for the following platforms:
 - Facebook
 - GitHub
 - LinkedIn
-- Twitch
 - Spotify
 - ...and more
 
@@ -88,9 +87,8 @@ Zerouth uses a configuration object to set up OAuth parameters. Make sure to pro
 - `client_id`: The client ID provided by the OAuth provider.
 - `client_secret`: The client secret provided by the OAuth provider.
 - `redirect_url`: The callback URL to redirect to after successful authentication.
-- `success_redirect`: (Optional) The URL to redirect to after successful authentication.
-- `failure_redirect`: (Optional) The URL to redirect to after failed authentication.
-- `auth_type`: (Optional) The type of authentication (e.g., 'code', 'token').
+- `success_redirect`: The URL to redirect to after successful authentication.
+- `failure_redirect`: The URL to redirect to after failed authentication.
 - `scope`: (Optional) An array of scope strings for requesting specific permissions.
 - ...other configuration options specific to each OAuth provider.
 
