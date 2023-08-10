@@ -41,7 +41,7 @@ app.use(passport.session())
 const GoogleConfig = {
   client: 'google',
   client_id: 'GOOGLE_CLIENT_ID',
-  redirect_url: '/google/callback',
+  redirect_url: '/google/callback', //add http://localhost:3000/google/callback in google cloud console
   client_secret: 'GOOGLE_CLIENT_SECRET',
   success_redirect: '/success',
   failure_redirect: '/login',
