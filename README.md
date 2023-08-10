@@ -54,7 +54,7 @@ app.use(
 );
 
 // Handle successful authentication
-app.get('/auth/success', (req, res) => {
+app.get('/success', (req, res) => {
   return res.send(req.user);
 });
 
