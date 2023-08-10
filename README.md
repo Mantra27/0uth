@@ -50,7 +50,7 @@ const GoogleConfig = {
 
 // Apply the zerouth to your Express app
 app.use(
-  zerouth("/auth/google", GoogleConfig);
+  zerouth("/auth/google", GoogleConfig)
 );
 
 // Handle successful authentication
