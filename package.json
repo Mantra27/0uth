@@ -1,7 +1,7 @@
 {
   "name": "0uth",
   "version": "1.1.4",
-  "main": "./lib/index",
+  "main": "./index",
   "license": "MIT",
   "dependencies": {
     "@r1oga/passport-reddit": "^1.0.0",
@@ -19,6 +19,7 @@
     "passport-google-oauth20": "^2.0.0",
     "passport-linkedin": "^1.0.0",
     "passport-linkedin-oauth2": "^2.0.0",
+    "passport-local": "^1.0.0",
     "passport-spotify": "^2.0.0",
     "passport-twitch": "^1.0.3",
     "passport-twitter": "^1.0.4",

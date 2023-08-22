@@ -13,7 +13,7 @@ type Path = string; // "/*", "/<strat>"
   //beta phase has 16 popular pp clients only
   const _clients : Array<string> = 
   [
-    "traditinal", "google", "facebook",
+    "local", "google", "facebook",
     "github", "linkedin", "twitter",
     "microsoft", "discord", "slack",
     "twitch", "reddit", "spotify",
@@ -145,7 +145,6 @@ type Path = string; // "/*", "/<strat>"
 
           //setting the default fallback redirect_url
           _.redirect_url = config.redirect_url || `${req.protocol}://${req.get('host')}${req.url}${_.client}/callback?code=fallback_default`;
-
           switch (String(_.client).toLowerCase()) {
             case "google":
               
@@ -186,6 +185,11 @@ type Path = string; // "/*", "/<strat>"
 
             case "spotify":
             strategy.Spotify(_);
+            auth(_, req, res, next);
+            break;
+
+            case "local":
+            strategy.Traditional(_);
             auth(_, req, res, next);
             break;
 

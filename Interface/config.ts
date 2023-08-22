@@ -7,6 +7,7 @@ interface OAuthConfig {
     success_redirect?: String;
     failure_redirect?: String;
     auth_type?: String; 
+    cb?: Function;
 }
 
 export {OAuthConfig}
