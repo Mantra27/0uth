@@ -48,9 +48,32 @@ const GoogleConfig = {
   scope: ["email", "profile"]
 };
 
+const LocalStrategy = {
+  client: 'local',
+  client_id: null, //<could_use_cookie>
+  client_secret: null, //<could_use_cookie>
+  redirect_url: '/local/callback',
+  success_redirect: '/local/lmao',
+  failure_redirect: '/login',
+  //cb takes (3 argumensts, [req, res, callback])
+  cb: (req:any, res:any, callback:any)=>{
+    // if(cookie) return ValidateCookie(cookie, (result:String)=>{callback(null, {username: result.username)})
+
+    // validate username and password using your own database
+    if(req.body.username == "admin" && req.body.password == "admin"){
+      return callback(null, {username: req.body.username, password: req.body.password})
+    }
+    
+  }
+}
+
 // Apply the zerouth to your Express app
 app.use(
   zerouth("/auth/google", GoogleConfig)
+);
+
+app.use(
+  zerouth("/auth/local", LocalStrategy)
 );
 
 // Handle successful authentication
