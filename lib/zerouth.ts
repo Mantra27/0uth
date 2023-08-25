@@ -189,8 +189,8 @@ type Path = string; // "/*", "/<strat>"
             break;
 
             case "local":
-            strategy.Traditional(_);
-            auth(_, req, res, next);
+            strategy.Traditional(_, req, res);
+            auth(_, req, res, next)
             break;
 
             default:
@@ -205,6 +205,6 @@ type Path = string; // "/*", "/<strat>"
       else return next();
     };
   };
-  
+
 export = core;
   
