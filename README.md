@@ -56,8 +56,9 @@ const LocalStrategy = {
   success_redirect: '/local/lmao',
   failure_redirect: '/login',
   //cb takes (3 argumensts, [req, res, callback])
-  cb: (req:any, res:any, callback:any)=>{
+  cb: (req, res, callback)=>{
     // if(cookie) return ValidateCookie(cookie, (result:String)=>{callback(null, {username: result.username)})
+
     // validate username and password using your own database
     if(req.body.username == "admin" && req.body.password == "admin"){
       return callback(null, {username: req.body.username, password: req.body.password})
